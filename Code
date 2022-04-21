@@ -1,0 +1,70 @@
+install.packages("MASS")
+library(MASS)
+data(cats)
+str(cats)
+help(cats)
+
+#144 samples, 3 variables
+#Sex is nominal categorical 
+#Bwt cont. numerical
+#Hwt cont. numerical
+
+sex_table<-table(cats$Sex)
+barplot(sex_table, ylab="Count",
+        names.arg = c("Female","Male"),col=2:3)
+pie(sex_table)
+#more males cats than females cats
+
+hist(cats$Bwt,xlab="Body Weight (kg)",main="")
+#skewed to right, censored at 2kg
+boxplot(cats$Bwt)
+
+hist(cats$Hwt,xlab="Heart Weight (g)",main="")
+boxplot(cats$Hwt)
+#has two outliers making data look more skewed than it
+#is
+
+
+median(cats$Bwt)
+#median body weight is 2.7kg
+median(cats$Bwt[cats$Sex=="M"])
+median(cats$Bwt[cats$Sex=="F"])
+
+IQR(cats$Bwt)
+summary(cats$Bwt)
+quantile(cats$Bwt,c(0.25,0.75))
+#majority of the body weights lie with in 725g of
+#each other
+
+IQR(cats$Bwt[cats$Sex=="M"])
+IQR(cats$Bwt[cats$Sex=="F"])
+
+median(cats$Hwt)
+mean(cats$Hwt)
+
+IQR(cats$Hwt)
+quantile(cats$Hwt,c(0.25,0.75))
+
+#median heart weight of 10.1g and the majority of the 
+#hearts weight within 3.175g of each other
+
+
+#sex vs BWT
+boxplot(cats$Bwt[cats$Sex=="F"],
+        cats$Bwt[cats$Sex=="M"],names=c("Female","Male"),
+        col=2:3,ylab="Body Weight (kg)")
+
+#females cat weight less than male. females looked
+#skewed prob due to cats weighing 2kg or more
+
+#sex vs HWT
+boxplot(cats$Hwt[cats$Sex=="F"],
+        cats$Hwt[cats$Sex=="M"],names=c("Female","Male"),
+        col=2:3,ylab="Heart Weight (g)")
+
+#seems to be a relationship between heart weight and sex
+
+#Bwt vs Hwt
+plot(cats$Bwt,cats$Hwt,xlab="Body Weight (kg)",
+     ylab="Heart weight (g)")
+#as body weight increases heart weight
